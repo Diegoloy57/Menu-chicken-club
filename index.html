@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Chicken Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   VARIABLES — PALETA THE CHICKEN CLUB
+═══════════════════════════════════════════════ */
+:root {
+  --black:      #0F0E0C;
+  --black-soft: #1A1916;
+  --black-card: #201E1B;
+  --red:        #C0261A;
+  --red-bright: #E03120;
+  --red-dim:    #7A1510;
+  --beige:      #E8D8B8;
+  --beige-hi:   #F2E8D0;
+  --beige-dim:  #B8A882;
+  --beige-mid:  #7A6E58;
+  --border:     rgba(232,216,184,.09);
+  --border-red: rgba(192,38,26,.32);
+  --r-sm:6px; --r-md:12px; --r-lg:18px; --r-xl:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--black);
+  color:var(--beige);
+  min-height:100dvh;
+  -webkit-font-smoothing:antialiased;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{font-family:'Abril Fatface',serif}
+
+/* ── BANNER MESA ── */
+.banner-mesa{
+  display:none;background:var(--black-soft);
+  border-bottom:1.5px solid var(--red-dim);
+  padding:11px 16px;text-align:center;
+  font-size:13px;color:var(--beige-dim);font-weight:500;letter-spacing:.02em;
+}
+
+/* ── HEADER ── */
+.header{
+  background:var(--black);border-bottom:1px solid var(--border);
+  box-shadow:0 2px 0 var(--red-dim),0 6px 24px rgba(0,0,0,.8);
+  position:sticky;top:0;z-index:100;
+}
+.header-inner{max-width:480px;margin:0 auto;padding:14px 16px 0}
+.logo-row{display:flex;align-items:center;gap:13px;padding-bottom:14px}
+.logo-mark{width:46px;height:46px;flex-shrink:0}
+.logo-text-block{line-height:1}
+.logo-text-block .the{
+  font-family:'Jost',sans-serif;font-size:10px;font-weight:300;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--beige-mid);
+  display:block;margin-bottom:1px;
+}
+.logo-text-block h1{font-size:22px;color:var(--beige-hi);line-height:1}
+.logo-text-block .club-tag{display:flex;align-items:center;gap:5px;margin-top:3px}
+.logo-text-block .club-tag::before,
+.logo-text-block .club-tag::after{content:'';flex:1;height:1px;background:var(--red)}
+.logo-text-block .club-tag span{
+  font-size:9px;font-weight:700;letter-spacing:.22em;
+  color:var(--beige-dim);text-transform:uppercase;
+}
+.cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat-btn{
+  flex-shrink:0;padding:7px 15px;border-radius:50px;
+  border:1px solid var(--border-red);background:transparent;
+  font-family:'Jost',sans-serif;font-size:13px;font-weight:500;
+  color:var(--beige-mid);cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.cat-btn.active,.cat-btn:hover{background:var(--red);border-color:var(--red);color:var(--beige-hi)}
+
+/* ── HERO ── */
+.hero-strip{max-width:480px;margin:0 auto;padding:18px 16px 0;text-align:center}
+.hero-strip .tagline{
+  font-family:'Jost',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--red);
+  display:block;margin-bottom:6px;
+}
+.hero-divider{display:flex;align-items:center;gap:10px;margin:6px 0 0}
+.hero-divider::before,.hero-divider::after{content:'';flex:1;height:1px;background:var(--border-red)}
+.hero-divider span{font-size:15px}
+
+/* ── MAIN ── */
+.main{max-width:480px;margin:0 auto;padding:8px 14px 110px}
+.section-label{
+  font-family:'Abril Fatface',serif;font-size:20px;color:var(--beige-hi);
+  margin:26px 0 4px;scroll-margin-top:126px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border-red)}
+
+/* ── TARJETA PRODUCTO ── */
+.product-card{
+  background:var(--black-card);border-radius:var(--r-lg);
+  border:1px solid var(--border);display:flex;overflow:hidden;
+  margin-bottom:11px;transition:border-color .2s,transform .15s;
+  animation:fadeUp .38s ease both;
+}
+.product-card:nth-child(2){animation-delay:.05s}
+.product-card:nth-child(3){animation-delay:.10s}
+.product-card:nth-child(4){animation-delay:.15s}
+.product-card:hover{border-color:var(--border-red)}
+.product-card:active{transform:scale(.985)}
+.product-card::before{
+  content:'';display:block;width:3px;background:var(--red);
+  flex-shrink:0;border-radius:3px 0 0 3px;
+}
+.product-img{
+  width:112px;flex-shrink:0;background:var(--black-soft);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.product-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.88) saturate(1.1);
+  transition:transform .4s ease,filter .3s;
+}
+.product-card:hover .product-img img{transform:scale(1.07);filter:brightness(.96) saturate(1.15)}
+.product-img-placeholder{font-size:40px;text-shadow:0 0 28px rgba(224,49,32,.5)}
+.product-info{
+  flex:1;padding:13px 13px 13px 12px;
+  display:flex;flex-direction:column;justify-content:space-between;min-width:0;
+}
+.product-name{font-family:'Abril Fatface',serif;font-size:15px;color:var(--beige-hi);line-height:1.2;margin-bottom:5px}
+.product-desc{
+  font-size:12px;color:var(--beige-mid);line-height:1.5;margin-bottom:10px;font-weight:300;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:17px;font-weight:700;color:var(--beige);font-variant-numeric:tabular-nums}
+.btn-add{
+  width:34px;height:34px;border-radius:50%;background:var(--red);border:none;
+  color:var(--beige-hi);font-size:22px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s,transform .1s;box-shadow:0 3px 12px rgba(192,38,26,.45);
+}
+.btn-add:hover{background:var(--red-bright)}
+.btn-add:active{transform:scale(.86)}
+body.mode-mesa .btn-add{display:none}
+
+/* ══════════════════════════════════════════════════════════
+   MODAL CONFIGURADOR DE ALITAS
+══════════════════════════════════════════════════════════ */
+.wings-overlay{
+  position:fixed;inset:0;background:rgba(8,7,6,.82);
+  z-index:500;display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.wings-overlay.open{opacity:1;pointer-events:all}
+
+.wings-sheet{
+  background:var(--black-soft);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+  border-top:2px solid var(--red);
+  width:100%;max-width:480px;max-height:92dvh;
+  overflow-y:auto;padding:0 16px 40px;
+  transform:translateY(100%);
+  transition:transform .32s cubic-bezier(.32,.72,0,1);
+  /* Scrollbar custom */
+  scrollbar-width:thin;
+  scrollbar-color:var(--red-dim) transparent;
+}
+.wings-overlay.open .wings-sheet{transform:translateY(0)}
+.wings-sheet::-webkit-scrollbar{width:4px}
+.wings-sheet::-webkit-scrollbar-thumb{background:var(--red-dim);border-radius:4px}
+
+.wings-handle{
+  width:40px;height:4px;background:var(--border-red);
+  border-radius:4px;margin:14px auto 16px;
+}
+
+/* Encabezado del configurador */
+.wings-header{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border-red);
+  margin-bottom:18px;
+}
+.wings-header-icon{font-size:32px}
+.wings-header-text h3{font-size:19px;color:var(--beige-hi);line-height:1.1}
+.wings-header-text p{font-size:12px;color:var(--beige-mid);margin-top:3px}
+
+/* PASO 1 — Selector de cantidad */
+.step-label{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.step-label::after{content:'';flex:1;height:1px;background:var(--border-red)}
+
+.qty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:22px}
+
+.qty-option{
+  background:var(--black-card);border:1.5px solid var(--border-red);
+  border-radius:var(--r-md);padding:12px 6px;cursor:pointer;
+  text-align:center;transition:all .2s;
+}
+.qty-option:hover{border-color:var(--red)}
+.qty-option.selected{background:rgba(192,38,26,.18);border-color:var(--red)}
+.qty-option .qty-num-big{
+  font-family:'Abril Fatface',serif;font-size:24px;
+  color:var(--beige-hi);line-height:1;display:block;
+}
+.qty-option .qty-label{font-size:11px;color:var(--beige-mid);margin-top:3px;display:block}
+.qty-option .qty-price{
+  font-size:13px;font-weight:700;color:var(--red);
+  margin-top:5px;display:block;
+}
+.qty-option.selected .qty-num-big,
+.qty-option.selected .qty-label{color:var(--beige-hi)}
+
+/* PASO 2 — Selección de salsas */
+.sauces-intro{
+  background:rgba(192,38,26,.1);border:1px solid var(--border-red);
+  border-radius:var(--r-sm);padding:10px 13px;
+  margin-bottom:14px;font-size:13px;color:var(--beige-dim);
+  display:flex;align-items:center;gap:8px;
+}
+.sauces-intro strong{color:var(--beige)}
+
+.sauce-slots{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+
+/* Cada slot de salsa */
+.sauce-slot{
+  background:var(--black-card);border:1px solid var(--border);
+  border-radius:var(--r-md);overflow:hidden;
+  transition:border-color .2s;
+}
+.sauce-slot.filled{border-color:var(--border-red)}
+
+.sauce-slot-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;cursor:pointer;
+}
+.sauce-slot-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:600;color:var(--beige);
+}
+.sauce-slot-num{
+  width:22px;height:22px;border-radius:50%;background:var(--red);
+  font-size:11px;font-weight:700;color:var(--beige-hi);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sauce-slot-chosen{font-size:12px;color:var(--beige-dim);text-align:right;max-width:130px;line-height:1.3}
+.sauce-slot-chosen.ok{color:var(--beige)}
+.sauce-chevron{font-size:12px;color:var(--beige-mid);margin-left:6px;transition:transform .2s;flex-shrink:0}
+.sauce-slot.open .sauce-chevron{transform:rotate(180deg)}
+
+/* Lista de salsas desplegable */
+.sauce-list{
+  display:none;
+  padding:0 10px 12px;
+}
+.sauce-slot.open .sauce-list{display:block}
+
+.sauce-options-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:7px;margin-bottom:12px;
+}
+.sauce-opt{
+  padding:9px 10px;border-radius:var(--r-sm);
+  border:1px solid var(--border);background:var(--black-soft);
+  cursor:pointer;font-size:13px;color:var(--beige-mid);
+  font-weight:500;text-align:center;transition:all .18s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.sauce-opt:hover{border-color:var(--border-red);color:var(--beige)}
+.sauce-opt.selected{
+  background:rgba(192,38,26,.18);border-color:var(--red);color:var(--beige-hi);
+}
+
+/* Toggle bañadas/aparte */
+.modo-label{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--beige-mid);margin-bottom:8px;display:block;
+}
+.modo-toggle{display:flex;gap:8px}
+.modo-btn{
+  flex:1;padding:9px 8px;border-radius:var(--r-sm);
+  border:1px solid var(--border);background:var(--black-soft);
+  cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;
+  color:var(--beige-mid);text-align:center;transition:all .18s;
+}
+.modo-btn:hover{border-color:var(--border-red)}
+.modo-btn.selected-banadas{
+  background:rgba(192,38,26,.18);border-color:var(--red);color:var(--beige-hi);
+}
+.modo-btn.selected-aparte{
+  background:rgba(184,168,130,.1);border-color:var(--beige-dim);color:var(--beige);
+}
+
+/* Resumen y botón agregar */
+.wings-summary{
+  background:var(--black-card);border:1px solid var(--border-red);
+  border-radius:var(--r-md);padding:14px;margin-top:6px;margin-bottom:16px;
+  display:none;
+}
+.wings-summary.visible{display:block}
+.wings-summary h4{font-size:14px;color:var(--beige-hi);margin-bottom:10px}
+.summary-line{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;color:var(--beige-dim);margin-bottom:6px;line-height:1.4;
+}
+.summary-line span:first-child{color:var(--red);font-size:15px;flex-shrink:0}
+.wings-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);padding-top:10px;margin-top:10px;
+}
+.wings-total-row span:first-child{font-size:13px;color:var(--beige-mid);font-weight:600}
+.wings-total-row span:last-child{font-size:18px;font-weight:700;color:var(--red-bright)}
+
+.btn-add-wings{
+  width:100%;padding:15px;background:var(--red);border:none;
+  border-radius:var(--r-md);color:var(--beige-hi);
+  font-family:'Jost',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:background .15s,transform .1s;
+  box-shadow:0 4px 16px rgba(192,38,26,.4);letter-spacing:.03em;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-add-wings:hover{background:var(--red-bright)}
+.btn-add-wings:active{transform:scale(.97)}
+.btn-add-wings:disabled{
+  background:var(--black-card);color:var(--beige-mid);
+  box-shadow:none;cursor:not-allowed;transform:none;
+}
+
+/* ── FAB CARRITO ── */
+.fab-cart{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) scale(0);z-index:200;
+  background:var(--red);color:var(--beige-hi);border:none;
+  border-radius:50px;padding:14px 22px;
+  font-family:'Jost',sans-serif;font-size:15px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;gap:10px;
+  box-shadow:0 6px 28px rgba(192,38,26,.55);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .15s;
+  white-space:nowrap;
+}
+.fab-cart.visible{transform:translateX(-50%) scale(1)}
+.fab-cart:hover{background:var(--red-bright)}
+.fab-badge{
+  background:var(--beige-hi);color:var(--black);
+  border-radius:50px;padding:2px 9px;font-size:13px;font-weight:700;
+}
+body.mode-mesa .fab-cart{display:none!important}
+
+/* ── MODAL CARRITO ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(8,7,6,.78);
+  z-index:300;display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-sheet{
+  background:var(--black-soft);border-radius:var(--r-lg) var(--r-lg) 0 0;
+  border-top:2px solid var(--red-dim);
+  width:100%;max-width:480px;max-height:92dvh;
+  overflow-y:auto;padding:0 16px 44px;
+  transform:translateY(100%);
+  transition:transform .3s cubic-bezier(.32,.72,0,1);
+}
+.modal-overlay.open .modal-sheet{transform:translateY(0)}
+.modal-handle{
+  width:40px;height:4px;background:var(--border-red);
+  border-radius:4px;margin:14px auto 18px;
+}
+.modal-title{font-family:'Abril Fatface',serif;font-size:20px;color:var(--beige-hi);margin-bottom:18px}
+.cart-list{margin-bottom:18px}
+.cart-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:11px 0;border-bottom:1px solid var(--border);
+}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:14px;font-weight:600;color:var(--beige);display:block;margin-bottom:3px}
+.cart-item-detail{font-size:11px;color:var(--beige-mid);line-height:1.5;font-weight:300}
+.cart-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.cart-item-qty{display:flex;align-items:center;gap:8px}
+.qty-btn{
+  width:26px;height:26px;border-radius:50%;
+  border:1px solid var(--border-red);background:transparent;
+  cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;
+  color:var(--red);font-weight:700;transition:background .15s;line-height:1;
+}
+.qty-btn:hover{background:rgba(192,38,26,.15)}
+.qty-num{width:20px;text-align:center;font-weight:600;font-size:14px;color:var(--beige-hi)}
+.cart-item-subtotal{font-weight:700;font-size:14px;color:var(--beige)}
+.cart-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0 18px;font-size:17px;font-weight:700;color:var(--beige-hi);
+}
+.cart-total-row span:last-child{color:var(--red-bright);font-size:20px}
+.divider{border:none;border-top:1px solid var(--border)}
+.empty-cart{text-align:center;padding:32px 0;color:var(--beige-mid);font-size:15px;font-weight:300}
+.empty-cart-icon{font-size:44px;margin-bottom:10px;display:block}
+
+/* Formulario */
+.form-section{margin-top:18px}
+.form-section h3{
+  font-size:12px;font-weight:700;color:var(--beige-dim);
+  margin-bottom:14px;letter-spacing:.1em;text-transform:uppercase;
+}
+.form-group{margin-bottom:14px}
+.form-label{
+  display:block;font-size:12px;font-weight:600;color:var(--beige-mid);
+  margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase;
+}
+.form-input{
+  width:100%;padding:12px 14px;
+  border:1px solid rgba(232,216,184,.14);border-radius:var(--r-sm);
+  font-family:'Jost',sans-serif;font-size:15px;
+  color:var(--beige);background:var(--black-card);outline:none;
+  transition:border-color .2s;
+}
+.form-input::placeholder{color:var(--beige-mid)}
+.form-input:focus{border-color:var(--red)}
+.form-input.error{border-color:var(--red-bright)}
+.payment-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-btn{
+  padding:13px 10px;border-radius:var(--r-md);
+  border:1px solid rgba(232,216,184,.14);background:var(--black-card);
+  cursor:pointer;font-family:'Jost',sans-serif;font-size:14px;font-weight:500;
+  color:var(--beige-mid);text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s;
+}
+.pay-btn .pay-icon{font-size:22px}
+.pay-btn.selected{border-color:var(--red);background:rgba(192,38,26,.14);color:var(--beige)}
+.btn-whatsapp{
+  width:100%;padding:16px;background:#25D366;border:none;
+  border-radius:var(--r-md);color:#fff;
+  font-family:'Jost',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;transition:background .15s,transform .1s;
+  box-shadow:0 4px 16px rgba(37,211,102,.28);letter-spacing:.03em;
+}
+.btn-whatsapp:hover{background:#1FAD55}
+.btn-whatsapp:active{transform:scale(.97)}
+.btn-clear{
+  width:100%;padding:12px;background:transparent;
+  border:1px solid rgba(232,216,184,.1);border-radius:var(--r-md);
+  color:var(--beige-mid);font-family:'Jost',sans-serif;
+  font-size:14px;cursor:pointer;margin-top:10px;
+  transition:border-color .2s,color .2s;
+}
+.btn-clear:hover{border-color:var(--red-dim);color:var(--red)}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:90px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--black-soft);border:1px solid var(--border-red);
+  color:var(--beige);padding:10px 20px;border-radius:50px;
+  font-size:13px;font-weight:500;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;white-space:nowrap;z-index:600;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<!-- Banner modo mesa -->
+<div class="banner-mesa" id="bannerMesa">
+  🍗 Menú Digital — Revisa nuestra variedad y pídele directamente a tu mesero
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-row">
+      <div class="logo-mark">
+        <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26 4C24.5 7.5 22 9.5 21.5 13.5C20 11 20.5 8.5 19 6C17 9 16 12.5 17.5 16C16 15 15.2 13.5 15 12C13 15 13 19 14.5 21.5C12.5 20 11.5 17.5 11 15C9.5 18.5 10 23.5 13.5 26.5C16.5 29 20.5 29.5 24 28.5C24 28.5 25 24 27 22.5C28 24.5 27.5 27 26.5 28.5C29.5 27 31.5 24 31.5 20.5C31.5 18 30.5 16 29.5 14C28 15.5 27.5 17 27.5 18C27.5 18 29 12 26 4Z" fill="#C0261A"/>
+          <ellipse cx="21" cy="30" rx="7" ry="8" fill="#E8D8B8"/>
+          <path d="M19 22.5C19 22.5 20 20 21 21C22 20.5 21.5 22.5 21.5 22.5" fill="#C0261A"/>
+          <path d="M15.5 30.5L13.5 32L15.5 33L16 31Z" fill="#C0261A"/>
+          <circle cx="18" cy="29" r="1.2" fill="#0F0E0C"/>
+          <circle cx="18.4" cy="28.7" r="0.35" fill="#E8D8B8"/>
+          <path d="M16 32.5C15 33.5 15.5 35 16.5 34.5" fill="#C0261A"/>
+          <ellipse cx="22" cy="40" rx="9" ry="5.5" fill="#E8D8B8" opacity=".45"/>
+        </svg>
+      </div>
+      <div class="logo-text-block">
+        <span class="the">The</span>
+        <h1>Chicken Club</h1>
+        <div class="club-tag"><span>Club</span></div>
+      </div>
+    </div>
+    <div class="cats" id="catsContainer"></div>
+  </div>
+</header>
+
+<div class="hero-strip">
+  <span class="tagline">🔥 Crujiente por fuera · Jugoso por dentro</span>
+  <div class="hero-divider"><span>🍗</span></div>
+</div>
+
+<main class="main" id="mainContent"></main>
+
+<!-- FAB -->
+<button class="fab-cart" id="fabCart" aria-label="Ver carrito">
+  🛒 Mi pedido <span class="fab-badge" id="fabCount">0</span>
+</button>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL CONFIGURADOR DE ALITAS
+══════════════════════════════════════════════════════════ -->
+<div class="wings-overlay" id="wingsOverlay">
+  <div class="wings-sheet" id="wingsSheet">
+    <div class="wings-handle"></div>
+
+    <div class="wings-header">
+      <div class="wings-header-icon">🍗</div>
+      <div class="wings-header-text">
+        <h3>Personaliza tus Alitas</h3>
+        <p>Elige cantidad, salsas y cómo las quieres</p>
+      </div>
+    </div>
+
+    <!-- PASO 1: Cantidad -->
+    <div class="step-label">Paso 1 — Elige la cantidad</div>
+    <div class="qty-grid" id="wingsQtyGrid">
+      <!-- Generado por JS -->
+    </div>
+
+    <!-- PASO 2: Salsas -->
+    <div class="step-label">Paso 2 — Elige tus salsas</div>
+
+    <div class="sauces-intro" id="saucesIntro">
+      <span>💡</span>
+      <span>Selecciona una cantidad primero para ver cuántas salsas puedes elegir.</span>
+    </div>
+
+    <div class="sauce-slots" id="sauceSlots">
+      <!-- Generado por JS según cantidad elegida -->
+    </div>
+
+    <!-- Resumen -->
+    <div class="wings-summary" id="wingsSummary">
+      <h4>📋 Resumen de tu pedido</h4>
+      <div id="summaryContent"></div>
+      <div class="wings-total-row">
+        <span>Total</span>
+        <span id="wingsTotal">$0</span>
+      </div>
+    </div>
+
+    <button class="btn-add-wings" id="btnAddWings" disabled onclick="confirmWings()">
+      🍗 Agregar al pedido
+    </button>
+  </div>
+</div>
+
+<!-- MODAL CARRITO + CHECKOUT -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-sheet" role="dialog" aria-modal="true">
+    <div class="modal-handle"></div>
+    <h2 class="modal-title">🛒 Tu pedido</h2>
+    <div class="cart-list" id="cartList"></div>
+    <hr class="divider"/>
+    <div class="cart-total-row">
+      <span>Total</span><span id="cartTotal">$0</span>
+    </div>
+    <section class="form-section" id="formSection">
+      <h3>📋 Datos de entrega</h3>
+      <div class="form-group">
+        <label class="form-label" for="inputNombre">Nombre completo *</label>
+        <input class="form-input" type="text" id="inputNombre" placeholder="Ej: Juan Pérez" autocomplete="name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="inputDireccion">Dirección y barrio *</label>
+        <input class="form-input" type="text" id="inputDireccion" placeholder="Ej: Cra 45 #23-10, El Poblado" autocomplete="street-address"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Método de pago *</label>
+        <div class="payment-options">
+          <button class="pay-btn" id="payEfectivo" onclick="selectPay('Efectivo')" type="button">
+            <span class="pay-icon">💵</span>Efectivo
+          </button>
+          <button class="pay-btn" id="payTransferencia" onclick="selectPay('Transferencia')" type="button">
+            <span class="pay-icon">📲</span>Transferencia
+          </button>
+        </div>
+      </div>
+    </section>
+    <button class="btn-whatsapp" id="btnWhatsapp" onclick="sendWhatsApp()" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.111 1.518 5.84L.057 23.94l6.268-1.432A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.042-1.389l-.361-.214-3.724.851.867-3.624-.235-.371A9.818 9.818 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/>
+      </svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <button class="btn-clear" onclick="clearCart()" type="button">🗑️ Vaciar carrito</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════════ -->
+<script>
+/* ============================================================
+   ✅ NÚMERO WHATSAPP — 57 + 3146197436
+============================================================ */
+const WHATSAPP_NUMBER = '573146197436';
+
+/* ============================================================
+   🫙 SALSAS DISPONIBLES
+   Para agregar/quitar una salsa, edita este array.
+   Formato: { id, name, emoji }
+============================================================ */
+const SAUCES = [
+  { id:'bbq',       name:'BBQ Ahumada',    emoji:'🍖' },
+  { id:'buffalo',   name:'Buffalo',        emoji:'🔥' },
+  { id:'honey',     name:'Honey Garlic',   emoji:'🍯' },
+  { id:'ranch',     name:'Ranch',          emoji:'🥛' },
+  { id:'chipotle',  name:'Chipotle',       emoji:'🌶️' },
+  { id:'miel',      name:'Miel Mostaza',   emoji:'🌻' },
+  { id:'teriyaki',  name:'Teriyaki',       emoji:'🥢' },
+  { id:'parm',      name:'Parmesano Ajo',  emoji:'🧄' },
+];
+
+/* ============================================================
+   🍗 OPCIONES DE ALITAS (cantidad → precio → salsas incluidas)
+   Para cambiar precios: edita el campo "price".
+============================================================ */
+const WING_OPTIONS = [
+  { qty: 8,  price: 28000, sauces: 2 },
+  { qty: 12, price: 38000, sauces: 3 },
+  { qty: 24, price: 65000, sauces: 4 },
+  { qty: 32, price: 82000, sauces: 5 },
+];
+
+/* ============================================================
+   🍔 MENÚ GENERAL (no-alitas)
+   Para agregar plato: copia un objeto {}, pégalo y edita.
+   Para quitar plato: borra el objeto completo.
+============================================================ */
+const MENU = [
+  // ── BROASTER ─────────────────────────────────────────────
+  { id:'br1', cat:'Broaster', name:'Presa Broaster Clásica',
+    desc:'Presa entera broaster, crujiente y jugosa, con papas y ensalada',
+    price:22000, emoji:'🍗',
+    img:'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&h=300&q=80&fit=crop' },
+  { id:'br2', cat:'Broaster', name:'Combo Familiar Broaster',
+    desc:'4 presas broaster, papas grandes y 2 salsas artesanales',
+    price:52000, emoji:'🍳',
+    img:'https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&q=80&fit=crop' },
+  { id:'br3', cat:'Broaster', name:'Pollo Entero Broaster',
+    desc:'Pollo completo broaster con papas XL y salsa a elección',
+    price:68000, emoji:'🐔',
+    img:'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400&h=300&q=80&fit=crop' },
+  // ── TENDERS ──────────────────────────────────────────────
+  { id:'t1', cat:'Tenders', name:'Tenders x4 + Dip',
+    desc:'4 tiras apanadas en panko, doradas al punto, con dip a elegir',
+    price:19000, emoji:'🍤',
+    img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&q=80&fit=crop' },
+  { id:'t2', cat:'Tenders', name:'Tenders x6 Doble Dip',
+    desc:'6 tenders crujientes con miel mostaza y chipotle artesanales',
+    price:25000, emoji:'🍤',
+    img:'https://images.unsplash.com/photo-1615996001375-c7ef13294436?w=400&h=300&q=80&fit=crop' },
+  { id:'t3', cat:'Tenders', name:'Tenders Picantes',
+    desc:'4 tenders bañados en salsa secreta de chile ancho y ajo',
+    price:21000, emoji:'🌶️',
+    img:'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&h=300&q=80&fit=crop' },
+  // ── PAPAS ────────────────────────────────────────────────
+  { id:'p1', cat:'Papas', name:'Papas Fritas Medianas',
+    desc:'Papas cortadas a mano con sal marina y romero',
+    price:9000, emoji:'🍟',
+    img:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&h=300&q=80&fit=crop' },
+  { id:'p2', cat:'Papas', name:'Papas Club Cargadas',
+    desc:'Papas bañadas en cheddar fundido, bacon y cebolla crujiente',
+    price:15000, emoji:'🧀',
+    img:'https://images.unsplash.com/photo-1585109649139-366815a0d713?w=400&h=300&q=80&fit=crop' },
+  { id:'p3', cat:'Papas', name:'Wedges de Batata',
+    desc:'Gajos de batata asados con pimienta negra y paprika ahumada',
+    price:11000, emoji:'🍠',
+    img:'https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&h=300&q=80&fit=crop' },
+  // ── SALSAS ───────────────────────────────────────────────
+  { id:'s1', cat:'Salsas Extras', name:'Salsa Artesanal x1',
+    desc:'Elige: BBQ, Buffalo, Honey Garlic, Ranch, Chipotle, Miel Mostaza, Teriyaki o Parmesano',
+    price:3000, emoji:'🫙',
+    img:'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=400&h=300&q=80&fit=crop' },
+  { id:'s2', cat:'Salsas Extras', name:'Pack 3 Salsas',
+    desc:'Tres salsas artesanales a tu elección — ideal para compartir',
+    price:7500, emoji:'🫙',
+    img:'https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=400&h=300&q=80&fit=crop' },
+  // ── BEBIDAS ──────────────────────────────────────────────
+  { id:'b1', cat:'Bebidas', name:'Limonada de Coco',
+    desc:'Limonada natural con leche de coco, hielo y menta fresca',
+    price:8000, emoji:'🥥',
+    img:'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&q=80&fit=crop' },
+  { id:'b2', cat:'Bebidas', name:'Gaseosa 400ml',
+    desc:'Coca-Cola, Sprite o Manzana — muy fría',
+    price:5000, emoji:'🥤',
+    img:'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400&h=300&q=80&fit=crop' },
+  { id:'b3', cat:'Bebidas', name:'Agua Mineral',
+    desc:'Agua cristal 600ml',
+    price:3500, emoji:'💧',
+    img:'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400&h=300&q=80&fit=crop' },
+];
+
+/* Categorías en pestañas — "Alitas" siempre primero */
+const CATEGORIES = ['Broaster','Tenders','Papas','Salsas Extras','Bebidas'];
+
+/* ============================================================
+   ESTADO GLOBAL
+============================================================ */
+let cart        = {};   // { uid: { ...item } }  — uid único por entrada
+let cartUidSeq  = 0;    // contador para uid únicos en el carrito
+let selectedPay = '';
+let isCartOpen  = false;
+
+/* Estado del configurador de alitas */
+let wState = {
+  selectedQty:    null,   // objeto WING_OPTIONS elegido
+  slots:          [],     // array de { sauce: null, modo: null } por cada salsa
+};
+
+/* ── Modo URL ── */
+const urlParams = new URLSearchParams(window.location.search);
+const IS_MESA   = (urlParams.get('mode') || '').toLowerCase() === 'mesa';
+if (IS_MESA) {
+  document.body.classList.add('mode-mesa');
+  document.getElementById('bannerMesa').style.display = 'block';
+}
+
+const fmt = n => '$' + n.toLocaleString('es-CO');
+
+/* ============================================================
+   RENDER MENÚ GENERAL
+============================================================ */
+function renderMenu() {
+  const catsEl = document.getElementById('catsContainer');
+  const mainEl = document.getElementById('mainContent');
+
+  /* Pestaña "Todos" */
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-btn active';
+  allBtn.textContent = 'Todos';
+  allBtn.onclick = () => catScroll(null, allBtn);
+  catsEl.appendChild(allBtn);
+
+  /* Pestaña especial: Alitas */
+  const wBtn = document.createElement('button');
+  wBtn.className = 'cat-btn';
+  wBtn.textContent = '🍗 Alitas';
+  wBtn.onclick = () => catScroll('Alitas', wBtn);
+  catsEl.appendChild(wBtn);
+
+  /* Sección especial de Alitas */
+  const wSec = document.createElement('section');
+  wSec.id = 'cat-Alitas';
+  const wLbl = document.createElement('h2');
+  wLbl.className = 'section-label';
+  wLbl.textContent = '🍗 Alitas';
+  wSec.appendChild(wLbl);
+  wSec.appendChild(makeWingsCard());
+  mainEl.appendChild(wSec);
+
+  /* Resto de categorías */
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.textContent = cat;
+    btn.onclick = () => catScroll(cat, btn);
+    catsEl.appendChild(btn);
+
+    const sec = document.createElement('section');
+    sec.id = 'cat-' + cat.replace(/\s+/g,'-');
+    const lbl = document.createElement('h2');
+    lbl.className = 'section-label';
+    lbl.textContent = cat;
+    sec.appendChild(lbl);
+    MENU.filter(p => p.cat === cat).forEach(p => sec.appendChild(makeCard(p)));
+    mainEl.appendChild(sec);
+  });
+}
+
+/* Tarjeta especial de Alitas — abre el configurador */
+function makeWingsCard() {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.style.cursor = 'pointer';
+
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'product-img';
+  const img = document.createElement('img');
+  img.src = 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&h=300&q=80&fit=crop';
+  img.alt = 'Alitas The Chicken Club';
+  img.loading = 'lazy';
+  img.onerror = () => { img.remove(); const ph = document.createElement('div'); ph.className='product-img-placeholder'; ph.textContent='🍗'; imgWrap.appendChild(ph); };
+  imgWrap.appendChild(img);
+
+  const info = document.createElement('div');
+  info.className = 'product-info';
+  info.innerHTML = `
+    <p class="product-name">Alitas The Club</p>
+    <p class="product-desc">8 · 12 · 24 · 32 unidades — elige tu cantidad, salsas y cómo las quieres</p>
+    <div class="product-footer">
+      <span class="product-price">Desde ${fmt(WING_OPTIONS[0].price)}</span>
+      ${!IS_MESA ? `<button class="btn-add" onclick="openWingsModal(event)" aria-label="Personalizar alitas">+</button>` : ''}
+    </div>`;
+
+  card.appendChild(imgWrap);
+  card.appendChild(info);
+  if (!IS_MESA) card.onclick = (e) => { if (!e.target.classList.contains('btn-add')) openWingsModal(e); };
+  return card;
+}
+
+/* Tarjeta producto normal */
+function makeCard(p) {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'product-img';
+  if (p.img) {
+    const img = document.createElement('img');
+    img.src = p.img; img.alt = p.name; img.loading = 'lazy';
+    img.onerror = () => { img.remove(); const ph=document.createElement('div'); ph.className='product-img-placeholder'; ph.textContent=p.emoji; imgWrap.appendChild(ph); };
+    imgWrap.appendChild(img);
+  } else {
+    const ph = document.createElement('div'); ph.className='product-img-placeholder'; ph.textContent=p.emoji; imgWrap.appendChild(ph);
+  }
+
+  const info = document.createElement('div');
+  info.className = 'product-info';
+  info.innerHTML = `
+    <p class="product-name">${p.name}</p>
+    <p class="product-desc">${p.desc}</p>
+    <div class="product-footer">
+      <span class="product-price">${fmt(p.price)}</span>
+      ${!IS_MESA ? `<button class="btn-add" onclick="addToCart('${p.id}')" aria-label="Añadir ${p.name}">+</button>` : ''}
+    </div>`;
+
+  card.appendChild(imgWrap);
+  card.appendChild(info);
+  return card;
+}
+
+function catScroll(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (!cat) { window.scrollTo({top:0,behavior:'smooth'}); return; }
+  document.getElementById('cat-'+cat.replace(/\s+/g,'-'))?.scrollIntoView({behavior:'smooth'});
+}
+
+/* ============================================================
+   CONFIGURADOR DE ALITAS
+============================================================ */
+function openWingsModal(e) {
+  e && e.stopPropagation();
+  if (IS_MESA) return;
+
+  /* Resetear estado */
+  wState = { selectedQty: null, slots: [] };
+
+  /* Renderizar grid de cantidades */
+  const grid = document.getElementById('wingsQtyGrid');
+  grid.innerHTML = '';
+  WING_OPTIONS.forEach(opt => {
+    const el = document.createElement('div');
+    el.className = 'qty-option';
+    el.dataset.qty = opt.qty;
+    el.innerHTML = `
+      <span class="qty-num-big">${opt.qty}</span>
+      <span class="qty-label">alitas</span>
+      <span class="qty-price">${fmt(opt.price)}</span>`;
+    el.onclick = () => selectWingQty(opt, el);
+    grid.appendChild(el);
+  });
+
+  /* Limpiar slots y resumen */
+  document.getElementById('sauceSlots').innerHTML = '';
+  document.getElementById('saucesIntro').style.display = 'flex';
+  document.getElementById('wingsSummary').classList.remove('visible');
+  document.getElementById('btnAddWings').disabled = true;
+
+  /* Abrir */
+  document.getElementById('wingsOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWingsModal() {
+  document.getElementById('wingsOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('wingsOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('wingsOverlay')) closeWingsModal();
+});
+
+/* Seleccionar cantidad */
+function selectWingQty(opt, el) {
+  document.querySelectorAll('.qty-option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  wState.selectedQty = opt;
+
+  /* Inicializar slots de salsas */
+  wState.slots = Array.from({length: opt.sauces}, () => ({ sauce: null, modo: null }));
+
+  /* Ocultar intro, renderizar slots */
+  document.getElementById('saucesIntro').style.display = 'none';
+  renderSauceSlots();
+  checkWingsReady();
+}
+
+/* Renderizar los slots de salsas */
+function renderSauceSlots() {
+  const container = document.getElementById('sauceSlots');
+  container.innerHTML = '';
+
+  wState.slots.forEach((slot, idx) => {
+    const slotEl = document.createElement('div');
+    slotEl.className = 'sauce-slot';
+    slotEl.id = `slot-${idx}`;
+
+    /* Header del slot */
+    const header = document.createElement('div');
+    header.className = 'sauce-slot-header';
+    header.onclick = () => toggleSlot(idx);
+    header.innerHTML = `
+      <div class="sauce-slot-title">
+        <span class="sauce-slot-num">${idx+1}</span>
+        Salsa ${idx+1}
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <span class="sauce-slot-chosen" id="chosen-${idx}">Sin elegir</span>
+        <span class="sauce-chevron">▼</span>
+      </div>`;
+    slotEl.appendChild(header);
+
+    /* Lista desplegable */
+    const list = document.createElement('div');
+    list.className = 'sauce-list';
+
+    /* Grid de salsas */
+    const grid = document.createElement('div');
+    grid.className = 'sauce-options-grid';
+    SAUCES.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'sauce-opt';
+      btn.type = 'button';
+      btn.dataset.sauceId = s.id;
+      btn.innerHTML = `${s.emoji} ${s.name}`;
+      btn.onclick = () => selectSauce(idx, s, btn);
+      grid.appendChild(btn);
+    });
+    list.appendChild(grid);
+
+    /* Toggle bañadas / aparte */
+    const modoLabel = document.createElement('span');
+    modoLabel.className = 'modo-label';
+    modoLabel.textContent = '¿Cómo la quieres?';
+    list.appendChild(modoLabel);
+
+    const modoRow = document.createElement('div');
+    modoRow.className = 'modo-toggle';
+
+    const btnBanadas = document.createElement('button');
+    btnBanadas.className = 'modo-btn';
+    btnBanadas.type = 'button';
+    btnBanadas.textContent = '🍗 Bañadas';
+    btnBanadas.onclick = () => selectModo(idx, 'Bañadas', btnBanadas, btnAparte);
+
+    const btnAparte = document.createElement('button');
+    btnAparte.className = 'modo-btn';
+    btnAparte.type = 'button';
+    btnAparte.textContent = '🫙 Aparte';
+    btnAparte.onclick = () => selectModo(idx, 'Aparte', btnAparte, btnBanadas);
+
+    modoRow.appendChild(btnBanadas);
+    modoRow.appendChild(btnAparte);
+    list.appendChild(modoRow);
+    slotEl.appendChild(list);
+    container.appendChild(slotEl);
+  });
+
+  /* Abrir el primer slot automáticamente */
+  toggleSlot(0);
+}
+
+/* Abrir/cerrar un slot */
+function toggleSlot(idx) {
+  const all = document.querySelectorAll('.sauce-slot');
+  all.forEach((el, i) => {
+    if (i === idx) el.classList.toggle('open');
+    else el.classList.remove('open');
+  });
+  /* Scroll suave hacia el slot abierto */
+  setTimeout(() => {
+    document.getElementById(`slot-${idx}`)?.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }, 120);
+}
+
+/* Seleccionar salsa en un slot */
+function selectSauce(idx, sauce, clickedBtn) {
+  /* Marcar visualmente */
+  const slot = document.getElementById(`slot-${idx}`);
+  slot.querySelectorAll('.sauce-opt').forEach(b => b.classList.remove('selected'));
+  clickedBtn.classList.add('selected');
+  wState.slots[idx].sauce = sauce;
+  updateSlotChosen(idx);
+  checkWingsReady();
+}
+
+/* Seleccionar modo bañadas/aparte */
+function selectModo(idx, modo, clickedBtn, otherBtn) {
+  clickedBtn.classList.remove('selected-banadas','selected-aparte');
+  otherBtn.classList.remove('selected-banadas','selected-aparte');
+  if (modo === 'Bañadas') {
+    clickedBtn.classList.add('selected-banadas');
+  } else {
+    clickedBtn.classList.add('selected-aparte');
+  }
+  wState.slots[idx].modo = modo;
+  updateSlotChosen(idx);
+
+  /* Avanzar automáticamente al siguiente slot si quedan */
+  const next = idx + 1;
+  if (next < wState.slots.length && wState.slots[idx].sauce && wState.slots[idx].modo) {
+    setTimeout(() => toggleSlot(next), 280);
+  }
+  checkWingsReady();
+}
+
+/* Actualizar el texto resumen dentro del header del slot */
+function updateSlotChosen(idx) {
+  const slot  = wState.slots[idx];
+  const label = document.getElementById(`chosen-${idx}`);
+  const slotEl = document.getElementById(`slot-${idx}`);
+
+  if (slot.sauce && slot.modo) {
+    label.textContent = `${slot.sauce.emoji} ${slot.sauce.name} · ${slot.modo}`;
+    label.classList.add('ok');
+    slotEl.classList.add('filled');
+  } else if (slot.sauce) {
+    label.textContent = `${slot.sauce.emoji} ${slot.sauce.name} · ?`;
+    label.classList.remove('ok');
+  } else {
+    label.textContent = 'Sin elegir';
+    label.classList.remove('ok');
+    slotEl.classList.remove('filled');
+  }
+}
+
+/* Verificar si todos los slots están completos */
+function checkWingsReady() {
+  const allDone = wState.selectedQty &&
+    wState.slots.every(s => s.sauce && s.modo);
+
+  document.getElementById('btnAddWings').disabled = !allDone;
+
+  if (allDone) updateWingsSummary();
+  else document.getElementById('wingsSummary').classList.remove('visible');
+}
+
+/* Actualizar resumen visual */
+function updateWingsSummary() {
+  const summary = document.getElementById('wingsSummary');
+  const content = document.getElementById('summaryContent');
+  const totalEl = document.getElementById('wingsTotal');
+
+  let html = `<div class="summary-line"><span>🍗</span><span>${wState.selectedQty.qty} alitas</span></div>`;
+  wState.slots.forEach((s, i) => {
+    html += `<div class="summary-line">
+      <span>${s.sauce.emoji}</span>
+      <span>Salsa ${i+1}: <strong style="color:var(--beige)">${s.sauce.name}</strong> — ${s.modo}</span>
+    </div>`;
+  });
+  content.innerHTML = html;
+  totalEl.textContent = fmt(wState.selectedQty.price);
+  summary.classList.add('visible');
+}
+
+/* Confirmar y agregar al carrito */
+function confirmWings() {
+  if (!wState.selectedQty || wState.slots.some(s => !s.sauce || !s.modo)) return;
+
+  const uid = 'wings_' + (++cartUidSeq);
+  const saucesDesc = wState.slots.map((s,i) => `Salsa ${i+1}: ${s.sauce.name} (${s.modo})`).join(' | ');
+
+  cart[uid] = {
+    uid,
+    type: 'wings',
+    name: `Alitas x${wState.selectedQty.qty}`,
+    detail: saucesDesc,
+    price: wState.selectedQty.price,
+    qty: 1,
+    emoji: '🍗',
+  };
+
+  updateFAB();
+  closeWingsModal();
+  showToast(`🍗 Alitas x${wState.selectedQty.qty} agregadas`);
+}
+
+/* ============================================================
+   CARRITO GENERAL
+============================================================ */
+function addToCart(id) {
+  if (IS_MESA) return;
+  const p = MENU.find(x => x.id === id);
+  if (!p) return;
+  /* Productos normales: agrupar por id */
+  if (cart[id]) {
+    cart[id].qty++;
+  } else {
+    cart[id] = { uid:id, type:'normal', ...p, qty:1 };
+  }
+  updateFAB();
+  showToast(`${p.emoji} ${p.name} agregado`);
+}
+
+function removeOneFromCart(uid) {
+  if (!cart[uid]) return;
+  cart[uid].qty--;
+  if (cart[uid].qty <= 0) delete cart[uid];
+  updateFAB();
+  renderCartModal();
+}
+
+function addOneFromModal(uid) {
+  if (!cart[uid]) return;
+  cart[uid].qty++;
+  updateFAB();
+  renderCartModal();
+}
+
+function clearCart() {
+  cart = {}; cartUidSeq = 0;
+  updateFAB(); closeModal(); showToast('Carrito vaciado');
+}
+
+const cartTotal = () => Object.values(cart).reduce((a,i) => a + i.price * i.qty, 0);
+const cartCount = () => Object.values(cart).reduce((a,i) => a + i.qty, 0);
+
+function updateFAB() {
+  document.getElementById('fabCount').textContent = cartCount();
+  const fab = document.getElementById('fabCart');
+  cartCount() > 0 && !IS_MESA ? fab.classList.add('visible') : fab.classList.remove('visible');
+}
+
+/* ── Render modal carrito ── */
+function renderCartModal() {
+  const listEl  = document.getElementById('cartList');
+  const totalEl = document.getElementById('cartTotal');
+  const items   = Object.values(cart);
+  listEl.innerHTML = '';
+
+  if (!items.length) {
+    listEl.innerHTML = `<div class="empty-cart"><span class="empty-cart-icon">🛒</span>Tu carrito está vacío.<br>¡Pide algo delicioso!</div>`;
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('btnWhatsapp').style.display = 'none';
+  } else {
+    items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = `
+        <div class="cart-item-info">
+          <span class="cart-item-name">${item.emoji} ${item.name}</span>
+          ${item.detail ? `<span class="cart-item-detail">${item.detail}</span>` : ''}
+        </div>
+        <div class="cart-item-right">
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="removeOneFromCart('${item.uid}')">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="addOneFromModal('${item.uid}')">+</button>
+          </div>
+          <span class="cart-item-subtotal">${fmt(item.price * item.qty)}</span>
+        </div>`;
+      listEl.appendChild(row);
+    });
+    document.getElementById('formSection').style.display = 'block';
+    document.getElementById('btnWhatsapp').style.display = 'flex';
+  }
+  totalEl.textContent = fmt(cartTotal());
+}
+
+document.getElementById('fabCart').addEventListener('click', openModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+function openModal()  {
+  renderCartModal();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  isCartOpen = true;
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  isCartOpen = false;
+}
+
+/* ── Pago ── */
+function selectPay(m) {
+  selectedPay = m;
+  document.getElementById('payEfectivo').classList.toggle('selected', m==='Efectivo');
+  document.getElementById('payTransferencia').classList.toggle('selected', m==='Transferencia');
+  document.getElementById('payEfectivo').style.outline = '';
+  document.getElementById('payTransferencia').style.outline = '';
+}
+
+/* ── WhatsApp ── */
+function sendWhatsApp() {
+  const nombre    = document.getElementById('inputNombre').value.trim();
+  const direccion = document.getElementById('inputDireccion').value.trim();
+  const iN = document.getElementById('inputNombre');
+  const iD = document.getElementById('inputDireccion');
+  let ok = true;
+
+  iN.classList.remove('error'); iD.classList.remove('error');
+  if (!nombre)    { iN.classList.add('error'); ok=false; }
+  if (!direccion) { iD.classList.add('error'); ok=false; }
+  if (!selectedPay) {
+    document.getElementById('payEfectivo').style.outline = '2px solid #E03120';
+    document.getElementById('payTransferencia').style.outline = '2px solid #E03120';
+    ok=false;
+  }
+  if (!cartCount()) ok=false;
+  if (!ok) { showToast('Completa todos los campos ✏️'); return; }
+
+  const detalle = Object.values(cart).map(i => {
+    let line = `- ${i.qty}x ${i.name} (${fmt(i.price)})`;
+    if (i.detail) line += `\n   ${i.detail}`;
+    return line;
+  }).join('\n');
+
+  const msg =
+`🍗 *THE CHICKEN CLUB* 🍗
+
+👤 Cliente: ${nombre}
+📍 Dirección: ${direccion}
+💳 Pago: ${selectedPay}
+🛒 Detalle:
+${detalle}
+
+💰 Total: ${fmt(cartTotal())}`;
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ── Toast ── */
+let tt;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (isCartOpen) closeModal(); else closeWingsModal(); }
+});
+
+/* INIT */
+renderMenu();
+</script>
+</body>
+</html>
