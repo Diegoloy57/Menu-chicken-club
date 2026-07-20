@@ -108,7 +108,7 @@ body.mode-mesa .btn-add{display:none}
 .sauce-list{display:none;padding:0 10px 12px}
 .sauce-slot.open .sauce-list{display:block}
 .sauce-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.sauce-opt{padding:9px 10px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--black-soft);cursor:pointer;font-size:13px;color:var(--beige-mid);font-weight:500;text-align:center;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.sauce-opt{padding:10px 8px;min-height:44px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--black-soft);cursor:pointer;font-size:13px;color:var(--beige-mid);font-weight:500;text-align:center;line-height:1.25;transition:all .18s;display:flex;align-items:center;justify-content:center;width:100%}
 .sauce-opt:hover{border-color:var(--border-red);color:var(--beige)}
 .sauce-opt.selected{background:rgba(192,38,26,.18);border-color:var(--red);color:var(--beige-hi)}
 .config-summary{background:var(--black-card);border:1px solid var(--border-red);border-radius:var(--r-md);padding:14px;margin-top:6px;margin-bottom:16px;display:none}
@@ -274,20 +274,20 @@ const WHATSAPP_NUMBER = '573146197436';
 
 /* ── SALSAS ── */
 const SALSAS_POLLO = [
-  {id:'bbqa', name:'BBQ Ahumado de la Casa', emoji:'🍖'},
-  {id:'miel', name:'Miel Mostaza',           emoji:'🌻'},
-  {id:'lena', name:'Crema Leña con Cebollín',emoji:'🪵'},
-  {id:'ron',  name:'BBQ de Ron de Caldas',   emoji:'🥃'},
-  {id:'buf',  name:'Búfalo Picante',          emoji:'🔥'},
-  {id:'bbqs', name:'BBQ Picante Suave',       emoji:'🌶️'},
+  {id:'bbqa', name:'BBQ Ahumado de la Casa'},
+  {id:'miel', name:'Miel Mostaza'},
+  {id:'lena', name:'Crema Leña con Cebollín'},
+  {id:'ron',  name:'BBQ de Ron de Caldas'},
+  {id:'buf',  name:'Búfalo Picante'},
+  {id:'bbqs', name:'BBQ Picante Suave'},
 ];
 const SALSAS_PAPAS = [
-  {id:'agua', name:'Cremoso de Aguacate', emoji:'🥑'},
-  {id:'ajo',  name:'Cremoso de Ajo',      emoji:'🧄'},
-  {id:'rosa', name:'Rosada de la Casa',   emoji:'🌸'},
+  {id:'agua', name:'Cremoso de Aguacate'},
+  {id:'ajo',  name:'Cremoso de Ajo'},
+  {id:'rosa', name:'Rosada de la Casa'},
 ];
-const SALSA_SIN = {id:'sin', name:'Sin salsa', emoji:'🚫'};
-const SALSA_PEPINILLO = {id:'pepinillo', name:'Salsa de pepinillo de la casa', emoji:'🥒'};
+const SALSA_SIN = {id:'sin', name:'Salsa aparte'};
+const SALSA_PEPINILLO = {id:'pepinillo', name:'Salsa de pepinillo de la casa'};
 const SALSAS_ALITAS = [...SALSAS_POLLO, SALSA_SIN];
 const SALSAS_TENDERS = [SALSA_PEPINILLO, ...SALSAS_POLLO, SALSA_SIN];
 
@@ -313,7 +313,7 @@ const IMG_COMBO_DOS = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSU
 /* ── MENÚ ── */
 const MENU = [
   // ENTRADAS
-  {id:'e1',cat:'Entradas',name:'Aros de Cebolla',desc:'Aros de cebolla apanados y fritos, dorados y crujientes.',price:15000,emoji:'🧅',img:'https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&h=400&q=80&fit=crop',type:'simple'},
+  {id:'e1',cat:'Entradas',name:'Mini Pastelitos de Pollo',desc:'5 mini pastelitos de pollo acompañados con salsa de ajo y limón.',price:10000,emoji:'🥟',img:'',type:'simple'},
 
   // POLLO
   {id:'p1',cat:'Pollo',name:'Medio Pollo',desc:'Medio pollo acompañado de una porción de papas rústicas y 1 salsa para las papas.',price:35500,emoji:'🍗',img:IMG_MEDIO_POLLO,type:'config',
@@ -324,6 +324,13 @@ const MENU = [
 
   // TENDERS
   {id:'t1',cat:'Tenders',name:'4 Tenders',desc:'Tenders crujientes acompañados de salsa de pepinillo de la casa. Elige 1 salsa para los tenders, papas a la francesa y 1 salsa para las papas.',price:27000,emoji:'🍤',img:IMG_TENDERS,type:'config',
+    slots:[
+      {label:'Salsa para los tenders',sauces:SALSAS_TENDERS,count:1,defaultSauceId:'pepinillo'},
+      {label:'Salsa para las papas',  sauces:SALSAS_PAPAS,count:1},
+    ]
+  },
+
+  {id:'t2',cat:'Tenders',name:'4 Tenders Receta Club',desc:'Tenders Receta Club con un toque más picante, acompañados de salsa de pepinillo de la casa. Incluye papas a la francesa y 1 salsa para las papas.',price:27000,emoji:'🌶️',img:'',type:'config',
     slots:[
       {label:'Salsa para los tenders',sauces:SALSAS_TENDERS,count:1,defaultSauceId:'pepinillo'},
       {label:'Salsa para las papas',  sauces:SALSAS_PAPAS,count:1},
@@ -487,7 +494,7 @@ function renderConfigSlots(){
     const chosen=cfg.slots[idx]?.chosen||null;
     const slotEl=document.createElement('div');slotEl.className='sauce-slot'+(chosen?' filled':'');slotEl.id=`cfg-slot-${idx}`;
     const header=document.createElement('div');header.className='sauce-slot-header';header.onclick=()=>toggleCfgSlot(idx);
-    const chosenText=chosen ? `${chosen.emoji} ${chosen.name}` : 'Sin elegir';
+    const chosenText=chosen ? `${chosen.emoji ? chosen.emoji + ' ' : ''}${chosen.name}` : 'Sin elegir';
     const chosenClass=chosen ? 'sauce-slot-chosen ok' : 'sauce-slot-chosen';
     header.innerHTML=`<div class="sauce-slot-title"><span class="sauce-slot-num">${idx+1}</span>${slotDef.label}</div><div style="display:flex;align-items:center;gap:4px"><span class="${chosenClass}" id="cfg-chosen-${idx}">${chosenText}</span><span class="sauce-chevron">▼</span></div>`;
     slotEl.appendChild(header);
@@ -495,7 +502,7 @@ function renderConfigSlots(){
     const grid=document.createElement('div');grid.className='sauce-options-grid';
     slotDef.sauces.forEach(s=>{
       const btn=document.createElement('button');btn.className='sauce-opt'+(chosen&&chosen.id===s.id?' selected':'');btn.type='button';
-      btn.innerHTML=`${s.emoji} ${s.name}`;btn.onclick=()=>selectCfgSauce(idx,s,btn);grid.appendChild(btn);
+      btn.textContent=`${s.emoji ? s.emoji + ' ' : ''}${s.name}`;btn.onclick=()=>selectCfgSauce(idx,s,btn);grid.appendChild(btn);
     });
     list.appendChild(grid);slotEl.appendChild(list);body.appendChild(slotEl);
   });
@@ -509,7 +516,7 @@ function selectCfgSauce(idx,sauce,clickedBtn){
   const slotEl=document.getElementById(`cfg-slot-${idx}`);
   slotEl.querySelectorAll('.sauce-opt').forEach(b=>b.classList.remove('selected'));
   clickedBtn.classList.add('selected');cfg.slots[idx].chosen=sauce;
-  const ch=document.getElementById(`cfg-chosen-${idx}`);ch.textContent=`${sauce.emoji} ${sauce.name}`;ch.classList.add('ok');
+  const ch=document.getElementById(`cfg-chosen-${idx}`);ch.textContent=`${sauce.emoji ? sauce.emoji + ' ' : ''}${sauce.name}`;ch.classList.add('ok');
   slotEl.classList.add('filled');
   const next=idx+1;if(next<cfg.slots.length)setTimeout(()=>toggleCfgSlot(next),280);
   checkCfgReady();
