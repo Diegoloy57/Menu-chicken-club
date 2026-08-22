@@ -297,10 +297,10 @@ const BEBIDAS_COMBO = [
 ];
 
 const HATSU_SABORES = [
-  {id:'hatsu_azul',     name:'Azul'},
+  {id:'hatsu_negro',     name:'Negro'},
   {id:'hatsu_verde',    name:'Verde'},
   {id:'hatsu_amarillo', name:'Amarillo'},
-  {id:'hatsu_rosado',   name:'Rosado'},
+  {id:'hatsu_blanco',   name:'Blanco'},
 ];
 
 /* ── CONFIGURACIONES REUTILIZABLES · V2 ──
@@ -419,10 +419,6 @@ const MENU = [
   {id:'por4',cat:'Porciones',name:'Porción Salsa',desc:'Salsa extra artesanal a tu elección para acompañar.',price:4000,emoji:'🫙',img:'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=400&h=400&q=80&fit=crop',type:'simple'},
 
   // COMBO
-  {id:'c1',cat:'Combo',name:'Combo Inauguración',desc:'12 alitas + 2 Coronitas + papas a la francesa. Elige 2 salsas para las alitas y 1 salsa para las papas.',price:62000,emoji:'🎉',img:IMG_ALITAS12,type:'config',
-    slots:CONFIG_PRESETS.comboInauguracion()
-  },
-
   {id:'c2',cat:'Combo',name:'Combo para Dos',desc:'4 tenders + 6 alitas + porción de papas agrandada + 2 Coca-Colas de 250 ml. Elige 1 salsa para las alitas, la salsa de los tenders, 1 salsa para las papas y tus bebidas.',price:58900,emoji:'🍗',img:IMG_COMBO_DOS,type:'config',configPrompt:'Personaliza tu combo',
     slots:CONFIG_PRESETS.comboParaDos()
   },
@@ -433,9 +429,7 @@ const MENU = [
   {id:'b3',cat:'Bebidas',name:'Quatro',desc:'Quatro 400 ml bien fría.',price:5900,emoji:'🥤',img:IMG_QUATRO,type:'simple'},
   {id:'b6',cat:'Bebidas',name:'Premio',desc:'Premio 400 ml bien fría.',price:5900,emoji:'🥤',img:IMG_PREMIO,type:'simple'},
   {id:'b7',cat:'Bebidas',name:'Agua Cristal',desc:'Agua Cristal 600 ml bien fría.',price:4500,emoji:'💧',img:IMG_AGUA_CRISTAL,type:'simple'},
-  {id:'b4',cat:'Bebidas',name:'Coronita',desc:'Cerveza Corona 207 ml bien fría.',price:5000,emoji:'🍺',img:'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=400&q=80&fit=crop',type:'simple'},
-
-  {id:'b5',cat:'Bebidas',name:'Hatsu Tea',desc:'Té Hatsu frío de 400 ml. Selecciona tu sabor favorito entre azul, verde, amarillo o rosado.',price:6500,emoji:'',img:IMG_HATSU,type:'config',configPrompt:'Selecciona tu sabor',
+  {id:'b5',cat:'Bebidas',name:'Hatsu Tea',desc:'Té Hatsu frío de 400 ml. Selecciona tu sabor favorito entre negro, verde, amarillo o blanco.',price:6500,emoji:'',img:IMG_HATSU,type:'config',configPrompt:'Selecciona tu sabor',
     slots:CONFIG_PRESETS.hatsu()
   },
 ];
