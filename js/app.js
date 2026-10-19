@@ -200,8 +200,8 @@ const MENU = [
     desc:'10 pop corns grandes, doraditos y crujientes, acompañados de papas a la francesa y dos salsas de la casa a tu elección. ¡Perfectos para disfrutar cada bocado!',
     price:29000,
     emoji:'🍗',
-    img:'',
-    soon:true,
+    img:'imagenes/combos/Crispy_club.png',
+    soon:false,
     type:'config',
     configPrompt:'Elige tus dos salsas',
     slots:CONFIG_PRESETS.crispyClub()
