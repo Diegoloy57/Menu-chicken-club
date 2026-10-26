@@ -254,7 +254,7 @@ const MENU = [
     price:90500,
     emoji:'🍗',
     img:IMG_ALITAS24,
-    badge:'15% OFF',
+    badge:'$83.300',
     type:'config',
     slots:CONFIG_PRESETS.alitas12()
   },
