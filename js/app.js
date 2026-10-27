@@ -111,6 +111,7 @@ const CONFIG_PRESETS = {
 /* ─── FOTOGRAFÍAS ─── */
 
 const IMG_TENDERS = 'imagenes/tenders/Tenders.jpeg';
+const IMG_TENDERS_RECETA ='imagenes/tenders/TendersReceta.jpeg';
 const IMG_ALITAS6 = 'imagenes/alitas/Alitas6.jpeg';
 const IMG_ALITAS12 = 'imagenes/alitas/Alitas12.jpeg';
 const IMG_ALITAS24 = 'imagenes/alitas/Alitasx24.PNG';
@@ -217,7 +218,7 @@ const MENU = [
     desc:'Nuestros mismos tenders crujientes, ahora con el toque picante de la Receta Club de la casa. Acompañados de salsa de pepinillo, papas a la francesa y 1 salsa para las papas.',
     price:27000,
     emoji:'🌶️',
-    img:IMG_TENDERS,
+    img:IMG_TENDERS_RECETA,
     badge:'',
     type:'config',
     slots:CONFIG_PRESETS.tenders()
@@ -265,7 +266,7 @@ const MENU = [
     desc:'10 pop corns grandes, doraditos y crujientes, acompañados de papas a la francesa y dos salsas de la casa a tu elección. ¡Perfectos para disfrutar cada bocado!',
     price:29000,
     emoji:'🍗',
-    img:'imagenes/combos/Crispy_club.png',
+    img:'imagenes/combos/Cryspyclub.jpeg',
     badge:'',
     soon:false,
     type:'config',
